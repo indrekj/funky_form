@@ -1,0 +1,55 @@
+= FunkyForm
+
+== Examples
+See test/dummy application for more examples.
+
+==== app/models/post.rb
+  class Post < ActiveRecord::Base
+  end
+
+==== app/forms/post_form.rb
+  class PostForm < FunkyForm::Base
+    model Post
+
+    attribute :title, :type => String
+    attribute :body, :type => String
+
+    validates :title, :presence => true, :length => {:maximum => 30}
+    validates :body, :presence => true, :length => {:within => 10..30}
+  end
+
+==== app/controllers/posts_controller.rb
+  class PostsController < ApplicationController
+    def new
+      @post_form = PostForm.new
+    end
+
+    def create
+      @post_form = PostForm.new(params[:post])
+
+      if @post_form.valid?
+        Post.create(@post_form.attributes)
+        flash[:notice] = "Successfully created"
+        redirect_to :posts
+      else
+        flash[:alert] = "Validation errors"
+        render "new"
+      end
+    end
+  end
+
+==== app/views/posts/new.html.erb
+  <h1>New Post</h1>
+  <%= form_for @post_form do |f| %>
+    <p>
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+    </p>
+
+    <p>
+      <%= f.label :body %>
+      <%= f.text_area :body %>
+    </p>
+
+    <p><%= f.submit %></p>
+  <% end %>
