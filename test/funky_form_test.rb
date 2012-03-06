@@ -32,4 +32,14 @@ class FunkyFormTest < Test::Unit::TestCase
 
     assert_equal "developer", form.new.title
   end
+
+  def test_attributes
+    form = new_funky_form do
+      attribute :title, :type => String
+      attribute :length, :type => Integer
+    end
+
+    f = form.new("title" => "developer", "length" => "112")
+    assert_equal Hash["title" => "developer", "length" => 112], f.attributes
+  end
 end
