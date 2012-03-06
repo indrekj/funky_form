@@ -8,14 +8,35 @@ module FunkyForm
     include ActiveAttr::AttributeDefaults
     include ActiveModel::Validations
 
-    private
-
     def initialize(instance_or_attributes = {})
       if instance_or_attributes.is_a?(Hash)
         super
       else
-        set_values_from_instance(instance_or_attributes)
+        @instance = instance_or_attributes
+        set_values_from_instance(@instance)
       end
+    end
+
+    def to_key
+      @instance ? [@instance.id] : nil
+    end
+
+    def to_model
+      @instance || self.class.class_variable_get(:@@model).new
+    end
+
+    def to_param
+      to_model.to_param
+    end
+
+    def self.model_name
+      @@model.model_name
+    end
+
+    private
+
+    def self.model(klass)
+      @@model = klass
     end
 
     def set_values_from_instance(instance)
