@@ -42,4 +42,13 @@ class FunkyFormTest < Test::Unit::TestCase
     f = form.new("title" => "developer", "length" => "112")
     assert_equal Hash["title" => "developer", "length" => 112], f.attributes
   end
+
+  def test_specifing_invalid_attributes
+    form = new_funky_form do
+      attribute :title, :type => String
+    end
+
+    f = form.new(:title => "developer", :private => "okou")
+    assert_nil f.attributes["private"]
+  end
 end
