@@ -5,14 +5,31 @@ class FunkyFormTest < Test::Unit::TestCase
     assert_kind_of Module, FunkyFormTest
   end
 
-  def test_presence_validator
-    form = Class.new(FunkyForm::Base) do
-      attribute :title, FunkyForm::TextField, :presence => true
+  def test_values_from_existing_instance
+    job = Job.new(:title => "existing title")
+
+    form = new_funky_form do
+      attribute :title, :type => String
     end
 
-    assert form.new(:title => "a title").valid?
-    assert !form.new(:title => nil).valid?, "should be invalid when nil"
-    assert !form.new(:title => "").valid?, "should be invalid when empty"
-    assert !form.new.valid?, "should be invalid when not specified"
+    assert_equal "existing title", form.new(job).title
+  end
+
+  def test_values_from_existing_instance_when_default_value_is_specified
+    job = Job.new(:title => nil)
+
+    form = new_funky_form do
+      attribute :title, :type => String, :default => "developer"
+    end
+
+    assert_equal nil, form.new(job).title
+  end
+
+  def test_default_value
+    form = new_funky_form do
+      attribute :title, :type => String, :default => "developer"
+    end
+
+    assert_equal "developer", form.new.title
   end
 end
