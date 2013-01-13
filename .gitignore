@@ -2,6 +2,7 @@
 .bundle
 Gemfile.lock
 pkg/*
+.rvmrc
 
 test/dummy/db/*.sqlite3
 test/dummy/log/*.log

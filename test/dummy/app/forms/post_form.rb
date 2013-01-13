@@ -1,8 +1,11 @@
-class PostForm < FunkyForm::Base
+class PostForm
+  include FunkyForm
+
   model Post
 
-  attribute :title, :type => String
-  attribute :body, :type => String
+  attribute :id, Integer
+  attribute :title, String
+  attribute :body, String
 
   validates :title, :presence => true, :length => {:maximum => 30}
   validates :body, :presence => true, :length => {:within => 10..30}

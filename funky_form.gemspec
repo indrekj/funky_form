@@ -18,10 +18,6 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_development_dependency "rails", "~> 3.2.0"
-  s.add_development_dependency "sqlite3"
-  s.add_development_dependency "capybara"
-  s.add_development_dependency "launchy"
-
-  s.add_runtime_dependency "active_attr", "~> 0.5.0.alpha2"
+  s.add_dependency "virtus", "~> 0.5.4"
+  s.add_dependency "activemodel", "~> 3.2.0"
 end
