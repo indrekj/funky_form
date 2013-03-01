@@ -81,6 +81,16 @@ class FunkyFormTest < MiniTest::Unit::TestCase
     assert_equal "Order", form_class.model_name.to_s
   end
 
+  def test_model_inheritance
+    base_class = new_funky_form do
+      model "Order"
+    end
+
+    form_class = Class.new(base_class)
+
+    assert_equal "Order", form_class.model_name.to_s
+  end
+
   def test_validations
     form = new_funky_form do
       attribute :title, String

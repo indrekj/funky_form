@@ -4,7 +4,7 @@ module FunkyForm
       if model_name
         @model_name = model_name
       else
-        @model_name ||= super()
+        @model_name ||= superclass.model_name
       end
     end
 
