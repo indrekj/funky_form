@@ -18,6 +18,6 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_dependency "virtus", "~> 0.5.4"
+  s.add_dependency "virtus", "~> 1.0.0.beta0"
   s.add_dependency "activemodel", "~> 3.2.0"
 end
