@@ -1,6 +1,6 @@
 require_relative "test_helper"
 
-class FunkyFormTest < MiniTest::Unit::TestCase
+class FunkyFormTest < MiniTest::Test
   parallelize_me!
 
   def test_values_from_existing_instance

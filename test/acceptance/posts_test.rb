@@ -1,6 +1,6 @@
-require_relative "../integration_test_helper"
+require "acceptance_test_helper"
 
-class PostsTest < ActiveSupport::IntegrationCase
+class PostsTest < AcceptanceTest
   def test_creating_a_post
     visit new_post_path
 
