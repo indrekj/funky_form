@@ -7,7 +7,7 @@ module FunkyForm
   # @param [Class] descendant
   def self.included(descendant)
     super
-    descendant.send(:include, Virtus)
+    descendant.send(:include, Virtus.model)
     descendant.send(:include, ActiveModel::Validations)
     descendant.send(:include, ActiveModel::Conversion)
     descendant.send(:include, InstanceMethods)
