@@ -91,6 +91,19 @@ class FunkyFormTest < MiniTest::Test
     assert_equal "Order", form_class.model_name.to_s
   end
 
+  def test_model_inheritance_with_different_model_name
+    base_class = new_funky_form do
+      model "Order"
+    end
+
+    form_class = Class.new(base_class) do
+      model "ConcreteOrder"
+    end
+
+    assert_equal "Order", base_class.model_name.to_s
+    assert_equal "ConcreteOrder", form_class.model_name.to_s
+  end
+
   def test_validations
     form = new_funky_form do
       attribute :title, String
@@ -101,5 +114,20 @@ class FunkyFormTest < MiniTest::Test
     assert !form.new(:title => nil).valid?, "should be invalid when nil"
     assert !form.new(:title => "").valid?, "should be invalid when empty"
     assert !form.new.valid?, "should be invalid when not specified"
+  end
+
+  def test_validations_with_model_inheritance
+    base_class = new_funky_form do
+    end
+
+    form = Class.new(base_class) do
+      model "Order"
+
+      attribute :title, String
+      validates :title, :presence => true
+    end
+
+    assert form.new(:title => "a title").valid?
+    assert !form.new(:title => nil).valid?, "should be invalid when nil"
   end
 end
