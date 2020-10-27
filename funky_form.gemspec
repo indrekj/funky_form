@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
   s.homepage    = ""
   s.summary     = %q{Simple form objects in ruby}
   s.description = %q{}
+  s.license     = "MIT"
 
   s.rubyforge_project = "funky_form"
 
